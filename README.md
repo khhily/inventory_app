@@ -19,5 +19,5 @@ samples, guidance on mobile development, and a full API reference.
 ## 生成HiveAdapter类文件
 
 ```shell
-flutter pub run build_runner build
+flutter pub run build_runner build --delete-conflicting-outputs
 ```

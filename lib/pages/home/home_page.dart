@@ -13,22 +13,45 @@ class HomePage extends GetView<HomePageController> {
         title: const Text('库存列表'),
         centerTitle: true,
       ),
-      body: ListView.builder(
-        itemBuilder: (ctx, index) {
-          // final item = controller.items[index];
+      body: Obx(
+        () => ListView.builder(
+          itemBuilder: (ctx, index) {
+            final item = controller.listService.items[index];
 
-          return ListTile(
-            title: const Text('Content'),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.delete_rounded),
-            ),
-          );
-        },
-        itemCount: controller.items.length,
+            if (index >= controller.listService.items.length) {
+              controller.loadMore();
+            }
+
+            return ListTile(
+              title: Text(item.goodsName),
+              trailing: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: item.num.toStringAsFixed(0),
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const TextSpan(
+                      text: '  ',
+                    ),
+                    TextSpan(
+                      text: item.unit.isEmpty ? 'g' : item.unit,
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+          itemCount: controller.listService.items.length,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          controller.addInventory();
+        },
         tooltip: '操作',
         child: const Icon(Icons.add),
       ),
