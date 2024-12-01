@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:inventory_app/models/operation_record.dart';
 import 'package:inventory_app/services/hive_cache.service.dart';
-import 'package:uuid/uuid.dart';
 
 class DataAccessService {
   DataAccessService._();
@@ -20,14 +19,16 @@ class DataAccessService {
     return list;
   }
 
-  Future<T?> find<T>(String cacheKey,
-      {dynamic key, bool Function(T)? predicator}) async {
+  Future<T?> find<T>(String cacheKey, {dynamic key, bool Function(T)? predicator}) async {
     final box = await HiveCacheService().getBox<T>(cacheKey);
+
     if (key != null) {
       return box.get(key);
     } else if (predicator != null) {
       return box.values.firstWhere(predicator);
     }
+
+    return null;
   }
 
   Future update<T extends HiveObject>(
@@ -52,7 +53,6 @@ class DataAccessService {
   Future addOperationRecord(OperationRecord record) async {
     final box = await HiveCacheService()
         .getBox<OperationRecord>(OperationRecord.cacheKey);
-    final id = const Uuid().v4();
     await box.add(record);
   }
 }

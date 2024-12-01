@@ -22,4 +22,8 @@ class OperationRecord extends HiveObject {
     required this.data,
     required this.updateTime,
   });
+
+  factory OperationRecord.fromJson(Map<String, dynamic> map) => _$OperationRecordFromJson(map);
+
+  Map<String, dynamic> toJson() => _$OperationRecordToJson(this);
 }

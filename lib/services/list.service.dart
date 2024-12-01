@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:inventory_app/models/sync_model.dart';
 import 'package:inventory_app/services/data_access.service.dart';
 
 class ListService<T> {

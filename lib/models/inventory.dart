@@ -1,7 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:inventory_app/models/sync_model.dart';
-import 'package:json_annotation/json_annotation.dart';
-
 part 'inventory.g.dart';
 
 @HiveType(typeId: 0)

@@ -33,7 +33,7 @@ class AddInventoryPageController extends GetxController {
       final name = nameController.text;
 
       int? count = int.tryParse(numberController.text, radix: 10);
-      if (count == null) throw new Exception('number format error');
+      if (count == null) throw Exception('number format error');
 
       final operationCount =
           operationType.value == OperationType.increase ? count : (0 - count);
@@ -45,7 +45,7 @@ class AddInventoryPageController extends GetxController {
         Inventory.cacheKey,
         key: name,
         updater: (v) {
-          v.num += operationCount!;
+          v.num += operationCount;
           v.updateTime = DateTime.now();
           return v;
         },
