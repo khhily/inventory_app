@@ -1,41 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'inventory.dart';
+part of 'sync_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class InventoryAdapter extends TypeAdapter<Inventory> {
+class SyncModelAdapter extends TypeAdapter<SyncModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  Inventory read(BinaryReader reader) {
+  SyncModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Inventory(
-      name: fields[0] as String,
-      num: fields[1] as int,
-      unit: fields[2] as String,
-      updateTime: fields[3] as DateTime,
+    return SyncModel(
+      syncTime: fields[0] as DateTime,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Inventory obj) {
+  void write(BinaryWriter writer, SyncModel obj) {
     writer
-      ..writeByte(4)
-      ..writeByte(0)
-      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.num)
-      ..writeByte(2)
-      ..write(obj.unit)
-      ..writeByte(3)
-      ..write(obj.updateTime);
+      ..writeByte(0)
+      ..write(obj.syncTime);
   }
 
   @override
@@ -44,7 +35,7 @@ class InventoryAdapter extends TypeAdapter<Inventory> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is InventoryAdapter &&
+      other is SyncModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

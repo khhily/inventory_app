@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inventory_app/models/operation_type.dart';
 
 import 'add_inventory_page.controller.dart';
 
@@ -9,7 +10,18 @@ class AddInventoryPage extends GetView<AddInventoryPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('货物新增')),
+      appBar: AppBar(
+        title: const Text('新增库存记录'),
+        centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () {
+              controller.saveAndClose(context);
+            },
+            child: const Text('保存'),
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -17,6 +29,38 @@ class AddInventoryPage extends GetView<AddInventoryPageController> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              FormField<String>(
+                initialValue: controller.operationType.value,
+                builder: (FormFieldState<String> field) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: RadioListTile<String>(
+                          title: const Text('增加'),
+                          value: OperationType.increase,
+                          groupValue: field.value,
+                          onChanged: (value) {
+                            field.didChange(value);
+                            controller.operationType.value = value ?? '';
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: RadioListTile<String>(
+                          title: const Text('消耗'),
+                          value: OperationType.decrease,
+                          groupValue: field.value,
+                          onChanged: (value) {
+                            field.didChange(value);
+                            controller.operationType.value = value ?? '';
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
               TextFormField(
                 controller: controller.nameController,
                 decoration: const InputDecoration(labelText: '名称'),
@@ -51,16 +95,10 @@ class AddInventoryPage extends GetView<AddInventoryPageController> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () => controller.saveAndClose(context),
-                child: const Text('保存'),
-              ),
             ],
           ),
         ),
       ),
     );
   }
-
 }

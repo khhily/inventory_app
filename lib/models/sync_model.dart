@@ -1,11 +1,13 @@
 import 'package:hive/hive.dart';
 
+part 'sync_model.g.dart';
+
+@HiveType(typeId: 1)
 class SyncModel extends HiveObject {
   @HiveField(0)
-  bool isSyncToDB = false;
+  DateTime syncTime;
 
-  @HiveField(1)
-  final DateTime createTime;
-
-  SyncModel({required this.createTime, this.isSyncToDB = false});
+  SyncModel({
+    required this.syncTime,
+  });
 }

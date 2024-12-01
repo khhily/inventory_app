@@ -4,22 +4,25 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'inventory.g.dart';
 
-@JsonSerializable()
-@HiveType(typeId: 1)
-class Inventory extends SyncModel {
+@HiveType(typeId: 0)
+class Inventory extends HiveObject {
   static const String cacheKey = 'inventory_cache_key';
-  @HiveField(2)
-  final String goodsName;
-  
-  @HiveField(3)
+  @HiveField(0)
+  final String name;
+
+  @HiveField(1)
   int num;
-  
-  @HiveField(4)
+
+  @HiveField(2)
   final String unit;
 
-  Inventory({required this.goodsName, required this.num, required this.unit, required super.createTime, super.isSyncToDB = false });
+  @HiveField(3)
+  DateTime updateTime;
 
-  factory Inventory.fromJson(Map<String, dynamic> map) => _$InventoryFromJson(map);
-
-  Map<String, dynamic> toJson() => _$InventoryToJson(this);
+  Inventory({
+    required this.name,
+    required this.num,
+    required this.unit,
+    required this.updateTime,
+  });
 }
