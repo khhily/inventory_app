@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:inventory_app/models/inventory.dart';
 import 'package:inventory_app/models/operation_type.dart';
+import 'package:inventory_app/services/data_sync.service.dart';
 import 'package:inventory_app/services/list.service.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
@@ -9,10 +11,15 @@ class HomePageController extends GetxController {
 
   late final RefreshController refreshController;
 
+  final DataSyncService dataSync = DataSyncService();
+
+  final isDebug = kDebugMode;
+
   @override
   void onInit() {
     super.onInit();
     refreshController = RefreshController(initialRefresh: true);
+    dataSync.syncData();
   }
 
   // 从 Hive 加载数据
@@ -63,9 +70,13 @@ class HomePageController extends GetxController {
   void addInventory({Inventory? item}) async {
     dynamic arg = null;
     if (item != null) {
-      arg = { 'operationType': OperationType.decrease, 'name': item.name };
+      arg = { 'operationType': OperationType.decrease, 'item': item };
     }
     await Get.toNamed('/add-inventory', arguments: arg);
     refresh();
+  }
+
+  void toSetting() async {
+    Get.toNamed('/setting');
   }
 }

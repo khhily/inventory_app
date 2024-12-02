@@ -17,7 +17,7 @@ class SyncModelAdapter extends TypeAdapter<SyncModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SyncModel(
-      syncTime: fields[0] as DateTime,
+      syncUrl: fields[0] as String?,
     );
   }
 
@@ -26,7 +26,7 @@ class SyncModelAdapter extends TypeAdapter<SyncModel> {
     writer
       ..writeByte(1)
       ..writeByte(0)
-      ..write(obj.syncTime);
+      ..write(obj.syncUrl);
   }
 
   @override

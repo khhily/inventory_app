@@ -7,8 +7,8 @@ import 'core/hive_init.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ServiceInit.init();
   await HiveInitService.init();
+  await ServiceInit.init();
   runApp(const MyApp());
 }
 

@@ -19,7 +19,8 @@ class DataAccessService {
     return list;
   }
 
-  Future<T?> find<T>(String cacheKey, {dynamic key, bool Function(T)? predicator}) async {
+  Future<T?> find<T>(String cacheKey,
+      {dynamic key, bool Function(T)? predicator}) async {
     final box = await HiveCacheService().getBox<T>(cacheKey);
 
     if (key != null) {
@@ -36,7 +37,7 @@ class DataAccessService {
     required dynamic key,
     required T Function(T) updater,
     required T Function() ifAbsent,
-    required OperationRecord Function() record,
+    OperationRecord Function()? record,
   }) async {
     final box = await HiveCacheService().getBox<T>(cacheKey);
     T? cache = box.get(key);
@@ -47,12 +48,21 @@ class DataAccessService {
       updater(cache);
       cache.save();
     }
-    await addOperationRecord(record());
+
+    if (record != null) {
+      await addOperationRecord(record());
+    }
   }
 
   Future addOperationRecord(OperationRecord record) async {
     final box = await HiveCacheService()
         .getBox<OperationRecord>(OperationRecord.cacheKey);
     await box.add(record);
+  }
+
+  Future delete<T>({ required String cacheKey, required bool Function(T) predicator }) async {
+    final box = await HiveCacheService().getBox<T>(cacheKey);
+    final futureList = box.keys.where((k) => predicator(box.get(k) as T)).map<Future>((k) => box.delete(k)).toList(growable: false);
+    await Future.wait(futureList);
   }
 }

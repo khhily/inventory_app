@@ -64,6 +64,7 @@ class AddInventoryPage extends GetView<AddInventoryPageController> {
               TextFormField(
                 controller: controller.nameController,
                 decoration: const InputDecoration(labelText: '名称'),
+                readOnly: controller.nameReadonly.value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a name';

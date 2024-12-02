@@ -21,17 +21,24 @@ class HomePage extends GetView<HomePageController> {
         title: const Text('库存列表'),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {
-              Get.toNamed('/history');
-            },
-            icon: Icon(Icons.history),
-          ),
+          if (controller.isDebug)
+            IconButton(
+              onPressed: () {
+                Get.toNamed('/history');
+              },
+              icon: const Icon(Icons.history),
+            ),
           IconButton(
             onPressed: () {
               controller.addInventory();
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
+          ),
+          IconButton(
+            onPressed: () {
+              controller.toSetting();
+            },
+            icon: const Icon(Icons.settings),
           ),
         ],
       ),
@@ -74,7 +81,7 @@ class HomePage extends GetView<HomePageController> {
                 },
                 title: Text(
                   item.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     color: Colors.indigo,
                   ),
@@ -94,7 +101,7 @@ class HomePage extends GetView<HomePageController> {
                       ),
                       TextSpan(
                           text: item.unit.isEmpty ? 'g' : item.unit,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.indigo,
                             fontSize: 16,
                           ))

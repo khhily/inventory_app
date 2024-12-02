@@ -4,10 +4,13 @@ part 'sync_model.g.dart';
 
 @HiveType(typeId: 1)
 class SyncModel extends HiveObject {
+  static const String cacheKey = 'sync_model_cache_key';
+  static const String putKey = 'defaultSyncModel';
+
   @HiveField(0)
-  DateTime syncTime;
+  String? syncUrl;
 
   SyncModel({
-    required this.syncTime,
+    this.syncUrl,
   });
 }

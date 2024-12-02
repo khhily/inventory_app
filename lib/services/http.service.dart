@@ -5,5 +5,8 @@ class HttpService {
 
   factory HttpService() => _instance;
 
-  // bool _configuration = false;
+  Future post({
+    required String url,
+    required dynamic data,
+  }) async {}
 }

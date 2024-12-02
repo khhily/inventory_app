@@ -48,3 +48,21 @@ class InventoryAdapter extends TypeAdapter<Inventory> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Inventory _$InventoryFromJson(Map<String, dynamic> json) => Inventory(
+      name: json['name'] as String,
+      num: (json['num'] as num).toInt(),
+      unit: json['unit'] as String,
+      updateTime: DateTime.parse(json['updateTime'] as String),
+    );
+
+Map<String, dynamic> _$InventoryToJson(Inventory instance) => <String, dynamic>{
+      'name': instance.name,
+      'num': instance.num,
+      'unit': instance.unit,
+      'updateTime': instance.updateTime.toIso8601String(),
+    };

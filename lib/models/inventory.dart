@@ -1,7 +1,9 @@
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'inventory.g.dart';
 
 @HiveType(typeId: 0)
+@JsonSerializable()
 class Inventory extends HiveObject {
   static const String cacheKey = 'inventory_cache_key';
   @HiveField(0)
@@ -11,7 +13,7 @@ class Inventory extends HiveObject {
   int num;
 
   @HiveField(2)
-  final String unit;
+  String unit;
 
   @HiveField(3)
   DateTime updateTime;
@@ -22,4 +24,8 @@ class Inventory extends HiveObject {
     required this.unit,
     required this.updateTime,
   });
+
+  factory Inventory.fromJson(Map<String, dynamic> map) => _$InventoryFromJson(map);
+
+  Map<String, dynamic> toJson() => _$InventoryToJson(this);
 }
