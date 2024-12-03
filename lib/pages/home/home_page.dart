@@ -45,7 +45,7 @@ class HomePage extends GetView<HomePageController> {
       body: Obx(
         () => SmartRefresher(
           physics: const BouncingScrollPhysics(),
-          enablePullDown: false,
+          enablePullDown: true,
           enablePullUp: true,
           onRefresh: () async {
             await controller.refresh();
